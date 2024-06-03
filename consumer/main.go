@@ -11,9 +11,9 @@ import (
 
 var _ plugin.Interface = app{}
 
-type app struct{}
+type App struct{}
 
-func (app) Manifest(context.Context) (*plugin.Manifest, error) {
+func (App) Manifest(context.Context) (*plugin.Manifest, error) {
 	return &plugin.Manifest{
 		Name: "consumer",
 	}, nil
@@ -38,15 +38,15 @@ func (a app) Execute(ctx context.Context, cmd *plugin.ExecutedCommand, api plugi
 	return errors.Errorf("invalid argument %q", cmd.Args[0])
 }
 
-func (app) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 

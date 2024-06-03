@@ -10,15 +10,15 @@ import (
 	"github.com/ignite/apps/wasm/cmd"
 )
 
-type app struct{}
+type App struct{}
 
-func (app) Manifest(context.Context) (*plugin.Manifest, error) {
+func (App) Manifest(context.Context) (*plugin.Manifest, error) {
 	m := &plugin.Manifest{Name: "wasm"}
 	m.ImportCobraCommand(cmd.NewWasm(), "ignite")
 	return m, nil
 }
 
-func (app) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.ClientAPI) error {
+func (App) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.ClientAPI) error {
 	// Run the "hermes" command as if it were a root command. To do
 	// so remove the first two arguments which are "ignite relayer"
 	// from OSArgs to treat "hermes" as the root command.
@@ -26,15 +26,15 @@ func (app) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.Client
 	return cmd.NewWasm().Execute()
 }
 
-func (app) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 

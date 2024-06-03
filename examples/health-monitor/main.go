@@ -10,16 +10,16 @@ import (
 	"health-monitor/cmd"
 )
 
-type app struct{}
+type App struct{}
 
-func (app) Manifest(context.Context) (*plugin.Manifest, error) {
+func (App) Manifest(context.Context) (*plugin.Manifest, error) {
 	return &plugin.Manifest{
 		Name:     "health-monitor",
 		Commands: cmd.GetCommands(),
 	}, nil
 }
 
-func (app) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.ClientAPI) error {
+func (App) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.ClientAPI) error {
 	// Remove the first two elements "ignite" and "health-monitor" from OsArgs.
 	args := c.OsArgs[2:]
 
@@ -36,15 +36,15 @@ func (app) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.Cl
 	}
 }
 
-func (app) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 

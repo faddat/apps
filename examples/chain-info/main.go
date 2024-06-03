@@ -11,16 +11,16 @@ import (
 	"chain-info/cmd"
 )
 
-type app struct{}
+type App struct{}
 
-func (app) Manifest(context.Context) (*plugin.Manifest, error) {
+func (App) Manifest(context.Context) (*plugin.Manifest, error) {
 	return &plugin.Manifest{
 		Name:     "chain-info",
 		Commands: cmd.GetCommands(),
 	}, nil
 }
 
-func (app) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.ClientAPI) error {
+func (App) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.ClientAPI) error {
 	// Remove the first two elements "ignite" and "flags" from OsArgs.
 	args := c.OsArgs[2:]
 
@@ -44,15 +44,15 @@ func (app) Execute(ctx context.Context, c *plugin.ExecutedCommand, api plugin.Cl
 	}
 }
 
-func (app) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
@@ -60,7 +60,7 @@ func main() {
 	hplugin.Serve(&hplugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig(),
 		Plugins: map[string]hplugin.Plugin{
-			"chain-info": plugin.NewGRPC(&app{}),
+			"chain-info": plugin.NewGRPC(&App{}),
 		},
 		GRPCServer: hplugin.DefaultGRPCServer,
 	})

@@ -12,15 +12,15 @@ import (
 
 var _ plugin.Interface = app{}
 
-type app struct{}
+type App struct{}
 
-func (app) Manifest(context.Context) (*plugin.Manifest, error) {
+func (App) Manifest(context.Context) (*plugin.Manifest, error) {
 	m := &plugin.Manifest{Name: "marketplace"}
 	m.ImportCobraCommand(cmd.NewMarketplace(), "ignite")
 	return m, nil
 }
 
-func (app) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.ClientAPI) error {
+func (App) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.ClientAPI) error {
 	// Instead of a switch on c.Use, we run the root command like if
 	// we were in a command line context. This implies to set os.Args
 	// correctly.
@@ -30,15 +30,15 @@ func (app) Execute(_ context.Context, c *plugin.ExecutedCommand, _ plugin.Client
 	return cmd.NewMarketplace().Execute()
 }
 
-func (app) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPre(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookPost(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
-func (app) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
+func (App) ExecuteHookCleanUp(context.Context, *plugin.ExecutedHook, plugin.ClientAPI) error {
 	return nil
 }
 
